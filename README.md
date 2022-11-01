@@ -14,16 +14,16 @@ ____
 
 :exclamation:Також, не варто переносити нікуди папку `data` так, як у ній є текстові файли, які використовуються для роботи з файлами.
 
-Що ми зробили в цьому коді?
+>Хід роботи - які знання були задіяні в коді:
 
 ```mermaid
 erDiagram
     CODE ||--o{ class_creation : OOP
     class_creation }|..|{ create_methods : OOP
-    CODE }|..|{ file_data_baze : file
+    CODE }|..|{ file_data_baze : Os_Path
     file_data_baze }|..|{ connect_menu_Easygui : Easygui
     create_methods }|..|{ function_work : OOP
-    function_work }|..|{ code_logic : logic
+    function_work }|..|{ code_logic : final_logic
     code_logic }|..|{ file_data_baze : final
     code_logic }|..|{ connect_menu_Easygui : final
 ```
