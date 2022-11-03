@@ -1,29 +1,61 @@
-# CoffeeShop Menu in easygui
-____
-*Homework from it-academy*
------------
-____
+# CoffeeShop Меню за допомогою файлів і Easygui
+****
+>homework
+****
+:eyes: усі файли мають бути в одній папці для коректної роботи коду
+(так, як у коді присутні images для візуальної демонстрації)\
+:exclamation:Також, не варто переносити нікуди папку `data` так, як у ній є текстові файли, які використовуються для роботи з файлами.
+
+Потрібно встановити:
 | Три бібліотеки у коді| Версія | Команди|
 |----------------|:---------:|----------------:|
 | Math | по дефолту | import math |
 | Os.path| по дефолту | import os.path |
 | Easygui | 0.98.3 | from easygui import * |
 
-:eyes: усі файли мають бути в одній папці для коректної роботи коду
-(так, як у коді присутні images для візуальної демонстрації)
-
-:exclamation:Також, не варто переносити нікуди папку `data` так, як у ній є текстові файли, які використовуються для роботи з файлами.
-
 >Хід роботи - які знання були задіяні в коді:
 
 ```mermaid
 erDiagram
-    CODE ||--o{ class_creation : OOP
-    class_creation }|..|{ create_methods : OOP
-    CODE }|..|{ file_data_baze : Os_Path
-    file_data_baze }|..|{ connect_menu_Easygui : Easygui
-    create_methods }|..|{ function_work : OOP
-    function_work }|..|{ code_logic : final_logic
-    code_logic }|..|{ file_data_baze : final
+    OOP ||--o{ code_logic : first
+    OOP {
+        I class_creation
+        II create_methods
+        III file_integration 
+    }
+    file_data_baze ||--o{ code_logic : second
+    file_data_baze {
+        I file_creation
+        II Os_path_conection
+        III file_integration 
+    }
     code_logic }|..|{ connect_menu_Easygui : final
 ```
+ ### :question: Що може код?
+
+- [X] Демонструвати меню з вашого файл_меню. :fork_and_knife:
+    - [X] Ви можете переписувати меню у файлі і кожного разу воно буде іншим у програмі.
+- [X] Мати базу даних клієнтів.
+  - [X] У файл з клієнтами, при кожній покупці, за бажанням покупця - буде внесено його ім'я. Ви зможете побачити скільки даний користувач загалом у вас потратив.
+- [X] Знижка постійним клієнтам. :purple_heart:
+     - [X] У коді прописана система знижок, яку вільно можна міняти.
+     
+```Python
+    def discount_calculation(discount):
+        if discount < 100:
+            return 0
+        elif discount < 200:
+            return 1
+        elif discount < 500:
+            return 2
+        else:
+            return 5
+```
+
+ Вказаний % знижки нараховується, якщо клієнт перейшов певний поріг витрат у вас. Цю кількість ми дізнаємось з файлу клієнтів по імені клієнта.
+ - [X] Розрахунок у різних валютах.
+     - [X] У коді прописана система конвертації з євро і доларів у гривні і навпаки. При покупці - користувач може вибрати, якою валютою він буде розраховуватись.
+ - [X] Запис продажів. :notebook:
+     - [X] У коді прописаний запис купленого товару у файл_продажів.
+ 
+ Для коректної роботи - використовуйте надані файли у папці `data`.
