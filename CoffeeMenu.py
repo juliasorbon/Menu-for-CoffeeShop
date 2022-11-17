@@ -37,7 +37,7 @@ class Money:
     def purchases(self, product):
         converted_money = product.converting(self.currency)
         self.minus(converted_money.bill, converted_money.cent)
-        return msgbox(f"Ви купили {product.name}\nВаша здача: {self}\nПриємного дня!",image='b50b4768194455943ca0f1cf07fcf9af.gif')
+        return msgbox(f"Ви купили {product.name}\nВаша здача: {self}\nПриємного дня!",image='img\\b50b4768194455943ca0f1cf07fcf9af.gif')
 
 class Product(Money):
     def __init__(self, bill, cent, currency, name):
@@ -59,7 +59,7 @@ class Product(Money):
 class CashRegister:
     @staticmethod # Якщо ми хочемо викликати функцію БЕЗ ОБ'ЄКТА, а напряму з класу, то дописуємо цю фігнюшку. ЦЕ СТАТИЧНИЙ МЕТОД
     def load_data(path, key):
-        data = open(path, 'r', encoding="utf-8")
+        data = open(path, 'r')
         data_string = data.read()
         data.close()
         result = {}
@@ -87,7 +87,7 @@ class CashRegister:
     @staticmethod
     def buying_info_text(product):
         message_string = "Ви хочете придбати: " + product.name + "\nЦіна: " + product.bill + "." + product.cent + " " + product.currency + "\nМаєте карту на знижку?"
-        discount_card_choice = buttonbox(message_string, "CoffeeShop", ["Так", "Ні, хочу оформити", "Не цікавить"],image='signing-icon-anim.gif')
+        discount_card_choice = buttonbox(message_string, "CoffeeShop", ["Так", "Ні, хочу оформити", "Не цікавить"],image='img\\signing-icon-anim.gif')
         return discount_card_choice
 
     @staticmethod
@@ -101,7 +101,7 @@ class CashRegister:
     @staticmethod
     def confirmation(product, product_with_discount, client_persentage):
         message = f"Продукт: {product.name}\nЦіна: {product.bill}.{product.cent} {product.currency}\nЗнижка: {client_persentage}%\nДо оплати: {product_with_discount.bill}.{product_with_discount.cent} {product.currency}\nОберіть вашу валюту:"
-        currency = buttonbox(message,"Оберіть валюту", ["UAH", "EUR", "DOL"],image='money.gif')
+        currency = buttonbox(message,"Оберіть валюту", ["UAH", "EUR", "DOL"],image='img\\money.gif')
         wallet_bill = int(enterbox(f'Скільки {currency} ви даєте? (без монет)', "Ціла частина ваших коштів"))
         wallet_cent = int(enterbox(f'Скільки монет ви даєте?', "Копійки ваших коштів"))
         wallet = Money(wallet_bill, wallet_cent, currency)
@@ -109,6 +109,16 @@ class CashRegister:
         cheklist = os.path.join('data','alreadyBuyed.txt')
         file = open(cheklist, 'a')
         file.write(f'Назва товару: {product.name}. Ціна {product.bill}.{product.cent} {product.currency}\n')
+        file.close()
+        file = open(inventoryPath,'r')
+        data_list = file.readlines()
+        for line in data_list:
+            if product.name in line:
+                data_list[data_list.index(line)] = " ".join(line.split()[:-1])+ " " + str(int(line.split()[-1])-1)+ "\n"
+        file.close()
+        print(data_list)
+        file = open(inventoryPath,'w')
+        file.write("".join(data_list))
         file.close()
 
     @staticmethod
@@ -130,13 +140,13 @@ while True:
     coffee = CashRegister.load_data(inventoryPath, "Кава:")
     deserts = CashRegister.load_data(inventoryPath, "Cмаколики:")
     menu = {"Кава": coffee, "Смаколики": deserts}
-    start_menu = buttonbox("Ласкаво просимо в кав'ярню",'CoffeeShop',['Перейти до покупки', 'Вихід'],image='rosehackstatic.gif')
+    start_menu = buttonbox("Ласкаво просимо в кав'ярню",'CoffeeShop',['Перейти до покупки', 'Вихід'],image='img\\rosehackstatic.gif')
     if start_menu != 'Перейти до покупки':
         break
-    choice = buttonbox("Що бажаєте купити?: ", "CoffeeShop", ["Кава", "Смаколики"],image='99ff0608104912d023a5642ee8baf1b0.gif')
+    choice = buttonbox("Що бажаєте купити?: ", "CoffeeShop", ["Кава", "Смаколики"],image='img\\99ff0608104912d023a5642ee8baf1b0.gif')
     buttons = list(menu[choice].keys())
     text = " " + str(buttons).replace("[", "").replace("]","").replace("\'", "").replace(",", "\n")
-    menu_choice = buttonbox(text, "CoffeeShop", buttons,image='coffee-gif-8.gif')
+    menu_choice = buttonbox(text, "CoffeeShop", buttons,image='img\\coffee-gif-8.gif')
     # виглядає, наприклад, ось так: Латте - Ціна 40.0 UAH
     product_name = menu_choice.split('-')[0].strip() # все до тере (вийшло Латте)
     product_currency = menu_choice[menu_choice.rindex(" ")::].strip() # Берем частинку після останнього пробілу (вийшло UAH)
@@ -149,7 +159,7 @@ while True:
         client_name = enterbox("Ваше ім'я?", "CoffeeShop")
         client = CashRegister.load_client(clientsPath, client_name)
         while client == "NOT FOUND":
-            if buttonbox("Вибачте, користувача не знайдено. Спробувати ще раз?", "CoffeeShop", ["Ні", "Так"],image='giphy.gif') == "Ні":
+            if buttonbox("Вибачте, користувача не знайдено. Спробувати ще раз?", "CoffeeShop", ["Ні", "Так"],image='img\\giphy.gif') == "Ні":
                 break
             client_name = enterbox("Ваше ім'я?", "CoffeeShop")
             client = CashRegister.load_client(clientsPath, client_name)
