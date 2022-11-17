@@ -1,4 +1,5 @@
-# CoffeeShop Меню за допомогою файлів.\ Візуалізація через бібліотеку KIVY i Easygui
+# CoffeeShop Меню за допомогою файлів. 
+Візуалізація через бібліотеку Kivy i Easygui
 ****
 >homework from it acadeny
 ****
