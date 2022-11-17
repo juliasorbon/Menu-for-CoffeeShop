@@ -1,4 +1,5 @@
-# CoffeeShop Меню за допомогою файлів. 
+# CoffeeShop Меню. 
+Робота з файлами\
 Візуалізація через бібліотеку Kivy i Easygui
 ****
 >homework from it acadeny
@@ -30,7 +31,8 @@ erDiagram
         II Os_path_conection
         III file_integration 
     }
-    code_logic }|..|{ connect_menu_Easygui_+_kivy : final
+    code_logic }|..|{ connect_menu_Easygui : last
+    connect_menu_Easygui ||--o{ connect_Kivy : final
 ```
  ### :question: Що може код?
 
